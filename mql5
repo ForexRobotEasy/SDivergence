@@ -1,0 +1,98 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                               SDivergence.mq5   |
+//|                      https://www.forexroboteasy.com               |
+//|                                         Forex Robot Easy Team    |
+//+------------------------------------------------------------------+
+#property copyright 'Forex Robot Easy Team'
+#property link      'https://www.forexroboteasy.com'
+
+//+------------------------------------------------------------------+
+//| Global Variables                                                  |
+//+------------------------------------------------------------------+
+input ENUM_INDICATOR selectedOscillator = IND_MACD; // Default selected oscillator
+input double rdThreshold = 0.0001; // Regular divergence threshold
+input double hdThreshold = 0.0002; // Hidden divergence threshold
+input bool enableRD = true; // Enable regular divergences
+input bool enableHD = true; // Enable hidden divergences
+
+//+------------------------------------------------------------------+
+//| Custom Indicator Inputs                                            |
+//+------------------------------------------------------------------+
+input string oscillatorName = 'SDivergence'; // Indicator name
+input ENUM_TIMEFRAMES oscillatorTimeframe = PERIOD_H1; // Indicator timeframe
+
+//+------------------------------------------------------------------+
+//| Custom Indicator Outputs                                           |
+//+------------------------------------------------------------------+
+double rdBuffer[];
+double hdBuffer[];
+
+//+------------------------------------------------------------------+
+//| Custom Indicator Initialization Function                          |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   // Calculate indicator buffers
+   ArrayResize(rdBuffer, 1);
+   ArrayResize(hdBuffer, 1);
+
+   // Set indicator buffers
+   SetIndexBuffer(0, rdBuffer);
+   SetIndexBuffer(1, hdBuffer);
+
+   // Set indicator labels
+   SetIndexLabel(0, 'Regular Divergence');
+   SetIndexLabel(1, 'Hidden Divergence');
+
+   return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Custom Indicator Calculation Function                             |
+//+------------------------------------------------------------------+
+int OnCalculate(const int rates_total, const int prev_calculated, const datetime &time[], const double &open[], const double &high[], const double &low[], const double &close[], const long &tick_volume[], const long &volume[], const int &spread[])
+{
+   // Calculate regular divergences
+   if (enableRD)
+   {
+      CalculateRegularDivergences(rates_total, prev_calculated, close);
+   }
+
+   // Calculate hidden divergences
+   if (enableHD)
+   {
+      CalculateHiddenDivergences(rates_total, prev_calculated, close);
+   }
+
+   return(rates_total);
+}
+
+//+------------------------------------------------------------------+
+//| Custom Indicator Regular Divergence Calculation Function          |
+//+------------------------------------------------------------------+
+void CalculateRegularDivergences(const int rates_total, const int prev_calculated, const double &close[])
+{
+   // Regular divergence calculation logic goes here
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//| Custom Indicator Hidden Divergence Calculation Function           |
+//+------------------------------------------------------------------+
+void CalculateHiddenDivergences(const int rates_total, const int prev_calculated, const double &close[])
+{
+   // Hidden divergence calculation logic goes here
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//| Expert Advisor Start Function                                      |
+//+------------------------------------------------------------------+
+void OnStart()
+{
+   // Main logic of the trading robot goes here
+   // ...
+}
+
+//+------------------------------------------------------------------+
